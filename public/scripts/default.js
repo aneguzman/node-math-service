@@ -7,21 +7,21 @@ $(document).ready(function () {
  
 function addNumbers() {
 	var data = getData();
-	serverAddition(data).done(displayResults);
+	serverAddition(data).done(displayResults).fail(displayError);
 }
 
 function subtractNumbers(){
 	var data = getData();
-	serverSubtraction(data).done(displayResults);
+	serverSubtraction(data).done(displayResults).fail(displayError);
 }
 
 function multiplyNumbers(){
 	var data = getData();
-	serverMultiplication(data).done(displayResults);
+	serverMultiplication(data).done(displayResults).fail(displayError);
 }
 function divideNumbers(){
 	var data = getData();
-	serverDivision(data).done(displayResults);
+	serverDivision(data).done(displayResults).fail(displayError);
 }
 
 function getData(){
@@ -60,4 +60,10 @@ function serverDivision(data){
 		dataType: "json",
 		cache: false
 	});
+}
+
+function displayError(serverData, error) {
+	var value = 'No result';
+	if ('result' in serverData) value = serverData.result;
+	$('#result').html(value + ' - ' + error);
 }
